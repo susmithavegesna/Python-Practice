@@ -1,0 +1,59 @@
+"""
+Given a 2D board and a word, find if the word exists in the grid.
+
+The word can be constructed from letters of sequentially adjacent cell, where "adjacent" cells are those horizontally or vertically neighboring. The same letter cell may not be used more than once.
+"""
+
+class Solution(object):
+    def exist(self, board: List[List[str]], word: str) -> bool:
+
+            def helper(board,result,letter,word,r,c):
+
+                #boundary check
+                if r <0 or c< 0: return False
+                if r >= len(board) or c >= len(board[0]): return False
+
+                #result len check
+                if len(result) > len(word): 
+                    print("result exceed")
+                    return False
+                #current letter check
+                if board[r][c] == 0: 
+                    print("already 0")
+                    return False
+                if board[r][c] != word[letter]: 
+                    print( board[r][c],"!=", word[letter], r,c)
+                    return False
+                print(board,result,r,c)
+
+                # copy path
+                #word[letter]
+                if board[r][c] == word[letter]:
+                    result.append(word[letter]) 
+                now = board[r][c]
+                board[r][c] = 0
+                print("res",result,r,c)
+
+                if "".join(result) == word: 
+                    print("match found")
+                    return True
+
+                x= helper(board,result,letter+1,word,r,c+1) or helper(board,result,letter+1,word,r,c-1) or helper(board,result,letter+1,word,r+1,c) or helper(board,result,letter+1,word,r-1,c)
+
+                board[r][c] = now
+                return x
+
+
+            #main call
+
+            row = len(board)
+            col = len(board[0])
+            #result = []
+            op = False
+            for r in range(row):
+                for c in range(col):
+                    if board[r][c] == word[0]:
+                        print("calling helper at",r,c)
+                        op = helper(board,[],0,word,r,c)
+                        if op == True: return op
+            return False
