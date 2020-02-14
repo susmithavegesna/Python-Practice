@@ -1,0 +1,37 @@
+"""
+Given two non-empty binary trees s and t, check whether tree t has exactly the same structure and node values with a subtree of s. A subtree of s is a tree consists of a node in s and all of this node's descendants. The tree s could also be considered as a subtree of itself.
+"""
+
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution:
+    def isSubtree(self, s: TreeNode, t: TreeNode) -> bool:
+        def isequal(n,m):
+            if n and m:
+                if n.val == m.val and isequal(n.left,m.left) and isequal(n.right,m.right): return True
+            elif any([n,m]): return False
+            elif n == None and m== None: return True
+        
+            
+        def dfs(n,m):
+            if n and m:
+                if n.val == m.val and isequal(n,m):
+                    return True
+                return dfs(n.left,m) or dfs(n.right,m)
+            elif any([n,m]): return False
+            
+            else:
+                return True
+                
+                
+        return dfs(s,t)
+            
+            
+            
+            
+        
