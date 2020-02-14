@@ -1,0 +1,53 @@
+"""
+Given a collection of distinct integers, return all possible permutations.
+"""
+class Solution:
+    def permute(self, nums: List[int]) -> List[List[int]]:
+        result  = []
+        temp = []
+        
+        def helper(nums,result,temp):
+            
+            if len(temp) == len(nums): result.append(temp[:])
+                
+            for i in range(len(nums)):
+                if nums[i] in temp: continue
+                temp.append(nums[i])
+                helper(nums,result,temp)
+                temp.pop()
+        
+        helper(nums,result,temp)
+        
+        return result
+                
+        
+"""
+Given a collection of numbers that might contain duplicates, return all possible unique permutations.
+"""
+class Solution:
+    def permuteUnique(self, nums: List[int]) -> List[List[int]]:
+        d = {}
+        
+        for n in nums:
+            if n in d.keys(): d[n] += 1
+            else:
+                d[n] =1
+                
+        #print(d)
+        op = []
+        temp=[]
+        def helper(temp, nl,op):
+            if len(temp) == nl: 
+                op.append(temp[:])
+                return
+            #if len(temp) > nl: return 
+            
+            for k,v in d.items():
+                if v > 0: 
+                    d[k] -= 1
+                    helper(temp+[k],nl,op)
+                    d[k] += 1
+                    
+        helper(temp,len(nums),op)
+        return op
+        
