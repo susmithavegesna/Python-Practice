@@ -1,0 +1,13 @@
+"""
+Given an integer n, return the number of structurally unique BST's (binary search trees) which has exactly n nodes of unique values from 1 to n.
+
+Input: n = 3
+Output: 5
+"""
+    def numTrees(self, n: int) -> int:
+        dp = { 0:1, 1:1 }
+        for x in range(2,n+1):
+            
+            dp[x] = sum([ dp[y]*dp[x-y-1] for y in range(x) ] )
+            
+        return dp[n]
