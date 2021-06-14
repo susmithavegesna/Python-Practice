@@ -1,0 +1,42 @@
+"""
+Given an array of integers nums sorted in ascending order, find the starting and ending position of a given target value.
+
+If target is not found in the array, return [-1, -1].
+
+You must write an algorithm with O(log n) runtime complexity.
+
+ 
+
+Example 1:
+
+Input: nums = [5,7,7,8,8,10], target = 8
+Output: [3,4]
+Example 2:
+
+Input: nums = [5,7,7,8,8,10], target = 6
+Output: [-1,-1]
+"""
+
+  def searchRange(self, nums: List[int], target: int) -> List[int]:
+        l = 0
+        r = len(nums)
+        mid = l+((r-l)//2)
+        
+        while l < r:
+            mid = (r+l) //2
+            if nums[mid] == target:
+                #print(mid)
+                r1=mid
+                l1 = mid
+                while r1+1<=len(nums)-1 and nums[r1+1] == target:
+                    r1+=1
+                while l1-1>=0 and nums[l1-1] == target:
+                    l1 -= 1
+                return [l1,r1]
+            elif nums[mid] < target:
+                l = mid+1
+            else:
+                r = mid
+        return [-1,-1]
+                
+                
