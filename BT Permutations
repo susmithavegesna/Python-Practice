@@ -19,7 +19,25 @@ class Solution:
         helper(nums,result,temp)
         
         return result
+ 
+ 
+ 
+ def permute(self, nums: List[int]) -> List[List[int]]:
+        t,r =[],[]
+        
+        def helper(nums,t,r):
+            if len(t) == len(nums):
+                r.append(t[:])
                 
+            for n in nums:
+                if n not in t:
+                    helper(nums,t+[n],r)
+            
+        helper(nums,t,r)
+        return r
+        
+        
+        
         
 """
 Given a collection of numbers that might contain duplicates, return all possible unique permutations.
