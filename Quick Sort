@@ -1,0 +1,29 @@
+import random
+def quickSort(arr,l,r):
+
+    def partition(arr,l,r):
+        left = l     # to keep track of small half index
+        pivot = arr[r]
+        for i in range(l,r):
+            #print(arr[i],pivot)
+            if arr[i] <= pivot:
+                arr[i],arr[left] = arr[left],arr[i]
+                left +=1
+        arr[r], arr[left] = arr[left],arr[r]
+        #print(arr,l,r,left)
+        return left
+
+    if l<r:
+        p = partition(arr,l,r)
+        quickSort(arr,l,p-1)
+        quickSort(arr,p+1,r)
+
+
+
+
+if __name__ == '__main__':
+    N = 10
+    a = [random.randint(1, 100) for i in range(N)]
+    print(a)
+    quickSort(a, 0, N - 1)
+    print(a)
