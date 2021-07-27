@@ -1,0 +1,66 @@
+import random
+
+
+
+def quickSort(arr,l,r):
+
+    def partition(arr,l,r):
+        left = l     # to keep track of small half index
+        pivot = arr[r]
+        for i in range(l,r):
+            #print(arr[i],pivot)
+            if arr[i] <= pivot:
+                arr[i],arr[left] = arr[left],arr[i]
+                left +=1
+        arr[r], arr[left] = arr[left],arr[r]
+        #print(arr,l,r,left)
+        return left
+
+    if l<r:
+        p = partition(arr,l,r)
+        quickSort(arr,l,p-1)
+        quickSort(arr,p+1,r)
+
+
+def mergesort(arr,l,r):
+    #print(arr[l:r+1])
+
+    def merge(arr,l,r,m) -> None:
+        arr1 = arr[l:m+1]
+        arr2 = arr[m+1:r+1]
+        i=j=0
+        k = l
+        while i < len(arr1) and j < len(arr2):
+            if arr1[i] <= arr2[j]:
+                arr[k] = arr1[i]
+                i += 1
+                k+=1
+            else:
+                arr[k] = arr2[j]
+                j += 1
+                k += 1
+        while i < len(arr1):
+            arr[k] = arr1[i]
+            i += 1
+            k += 1
+        while j < len(arr2):
+            arr[k] = arr2[j]
+            j += 1
+            k += 1
+
+
+    if l<r:
+        mid = (l + r) // 2
+        mergesort(arr,l,mid)
+        mergesort(arr,mid+1,r)
+        merge(arr,l,r,mid)
+
+
+
+
+if __name__ == '__main__':
+    N = 10
+    a = [random.randint(1, 100) for i in range(N)]
+    print(a)
+    quickSort(a, 0, N - 1)
+    print(a)
