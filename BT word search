@@ -4,6 +4,37 @@ Given a 2D board and a word, find if the word exists in the grid.
 The word can be constructed from letters of sequentially adjacent cell, where "adjacent" cells are those horizontally or vertically neighboring. The same letter cell may not be used more than once.
 """
 
+def exist(self, board: List[List[str]], word: str) -> bool:
+        
+        def dfs(board, r,c,word,rows,cols):
+            if len(word)==0: 
+                return True
+            if r < 0 or r >= rows or c < 0 or c>=cols : 
+                return False
+            if board[r][c] != word[0]: 
+                return False
+            
+            board[r][c] = ' '
+            if dfs(board, r-1,c,word[1:],rows,cols) or dfs(board, r+1,c,word[1:],rows,cols) or dfs(board, r,c-1,word[1:],rows,cols) or dfs(board, r,c+1,word[1:],rows,cols):
+                return True
+            board[r][c] = word[0]
+            
+            return False
+            
+                   
+        
+        for i in range(len(board)):
+            for j in range(len(board[0])):
+                if board[i][j] == word[0]:
+                    #print(i,j)
+                    if dfs(board,i,j,word,len(board),len(board[0])):
+                        return True
+        return False
+        
+        
+        
+        
+
 class Solution(object):
     def exist(self, board: List[List[str]], word: str) -> bool:
 
