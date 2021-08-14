@@ -1,3 +1,13 @@
+"""
+The matrix representation gives the advantage when the graph is dense, meaning when most of the nodes/vertices are connected to each other. 
+This is because in such cases, by using the entry of matrix, it saves us from having to allocate an extra pointer (which need a word size memory) 
+for each connection.
+
+For sparse graph, the list approach is better because you don't need to account for the 0 entries when there is no connection between the vertices.
+"""
+
+
+
 from _collections import deque
 def bfs(graph,s):
     #Time complexity is O(V + E)
